@@ -29,16 +29,15 @@
 #'
 #' Libiseller, C. and Grimvall, A., (2002), Performance of partial
 #' Mann-Kendall tests for trend detection in the presence of covariates.
-#' \emph{Environmetrics} 13, 71--84, \url{http://dx.doi.org/10.1002/env.507}.
+#' \emph{Environmetrics} 13, 71--84, \doi{10.1002/env.507}.
 #'
 #' @seealso `fume::mktrend` and `trend::mk.test`
 #' @author Dongdong Kong 
 #' 
 #' @examples
 #' x <- c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69)
+#' r <- mkTrend(x)
 #' r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
-#' 
-#' @importFrom data.table frank
 #' @export
 mkTrend_rcpp <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     z0    = z = NA_real_
@@ -153,11 +152,8 @@ acf.fft <- function(x, lag.max = NULL)
     FF  <- fftw(x0)
     FF2 <- (abs(FF))^2
 
-    # browser()
     # take the inverse transform of the power spectral density
     FF_inv <- fftw(FF2, inverse=1)
-    # browser()
-    # browser()
     # We repeat the same process (except for centering) on a ‘mask’ signal,
     # in order to estimate the error made on the previous computation.
     #   mask <- c(rep.int(1,N), rep.int(0,len.opt))
@@ -173,43 +169,4 @@ acf.fft <- function(x, lag.max = NULL)
     # The normalization is made by the variance of the signal,
     # which corresponds to the very first value of the autocovariance.
     acf[1:(lag.max+1)]/acf[1]
-}
-
-rank <- function (x, na.last = TRUE, ties.method = c("average", 
-    "first", "last", "random", "max", 
-    "min")) 
-{
-    nas <- is.na(x)
-    nm <- names(x)
-    ties.method <- match.arg(ties.method)
-    # print(ties.method)
-
-    if (is.factor(x)) 
-        x <- as.integer(x)
-    x <- x[!nas]
-    y <- switch(ties.method, 
-        average = , min = , 
-        max     = .Internal(rank(x, length(x), ties.method)), 
-        first   = sort.list(sort.list(x)), 
-        last    = sort.list(rev.default(sort.list(x, decreasing = TRUE))), 
-        random  = sort.list(order(x, stats::runif(sum(!nas))))
-    )
-    if (!is.na(na.last) && any(nas)) {
-        yy <- NA
-        NAkeep <- (na.last == "keep")
-        if (NAkeep || na.last) {
-            yy[!nas] <- y
-            if (!NAkeep) 
-                yy[nas] <- (length(y) + 1L):length(yy)
-        }
-        else {
-            len <- sum(nas)
-            yy[!nas] <- y + len
-            yy[nas] <- seq_len(len)
-        }
-        y <- yy
-        names(y) <- nm
-    }
-    else names(y) <- nm[!nas]
-    y
 }

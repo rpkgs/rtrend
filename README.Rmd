@@ -1,5 +1,17 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # rtrend
 
@@ -9,21 +21,20 @@
 
 ## Installation
 
-You can install the released version of rtrend from
-[CRAN](https://CRAN.R-project.org) with:
-
+You can install the released version of rtrend from [CRAN](https://CRAN.R-project.org) with:
 ``` r
 install.packages("rtrend")
 ```
 
 ## Example
 
+
 ``` r
 library(rtrend)
 ## basic example code
 ```
 
-``` r
+```{r}
 library(rtrend)
 set.seed(1)
 x <- rnorm(2e2)
@@ -31,10 +42,6 @@ microbenchmark::microbenchmark(
     mkTrend(x),
     mkTrend_rcpp(x)
 )
-#> Unit: microseconds
-#>             expr    min      lq     mean  median      uq     max neval
-#>       mkTrend(x) 4237.5 4320.60 5830.113 4523.60 5906.45 16492.2   100
-#>  mkTrend_rcpp(x)  510.9  541.05  783.561  573.65  717.90  6571.6   100
 ```
 
 ``` r

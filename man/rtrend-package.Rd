@@ -4,12 +4,18 @@
 \name{rtrend-package}
 \alias{rtrend}
 \alias{rtrend-package}
-\title{rtrend: What the Package Does (One Line, Title Case)}
+\title{rtrend: Modified Mann-Kendall in Rcpp}
 \description{
-What the package does (one paragraph).
+The non-parameter trend estimating algorithm Modified Mann-Kendall 
+    was rewritten in Rcpp here, which is about 10 times fatser than the previous 
+    R version in fume.
+    Reference:
+    Hamed, K. H., & Rao, A. R. (1998). A modified Mann-Kendall trend test for 
+    autocorrelated data. Journal of hydrology, 204(1-4), 182-196. 
+    <doi:10.1016/S0022-1694(97)00125-X>.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Dongdong Kong \email{kongdd.sysu@gmail.com} (\href{https://orcid.org/0000-0003-1836-8172}{ORCID})
 
 }
 \keyword{internal}

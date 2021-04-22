@@ -13,9 +13,7 @@ SEXP senslope(const NumericVector& y, Nullable<NumericMatrix> x = R_NilValue) {
         xx = x;
     }
 
-    // return x * 2;
     int len = (n * n - n) / 2;
-    // Rcout << len << std::endl;
     NumericVector V = NumericVector(len, NA_REAL);  // int V[len];
 
     int k = 0;
@@ -29,7 +27,6 @@ SEXP senslope(const NumericVector& y, Nullable<NumericMatrix> x = R_NilValue) {
     }
     // Rcout << V << std::endl;
     double slope = Rcpp::median(V, true);  //rm_na is true
-    // Rcout << slope << std::endl;
     return wrap(slope);
 }
 
@@ -110,25 +107,3 @@ NumericVector varS(NumericVector x, NumericVector rof, int S) {
 # microbenchmark(mkTrend(x),
 #                mkTrend.rcpp(x), times=100)
 */
-
-// SEXP senslope(const NumericVector& x);
-// RcppExport SEXP sourceCpp_1_senslope(SEXP xSEXP) {
-//   BEGIN_RCPP
-//   Rcpp::RObject rcpp_result_gen;
-//   Rcpp::RNGScope rcpp_rngScope_gen;
-//   Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-//   rcpp_result_gen = Rcpp::wrap(senslope(x));
-//   return rcpp_result_gen;
-//   END_RCPP
-// }
-// // Sf
-// int Sf(NumericVector x);
-// RcppExport SEXP sourceCpp_1_Sf(SEXP xSEXP) {
-//   BEGIN_RCPP
-//   Rcpp::RObject rcpp_result_gen;
-//   Rcpp::RNGScope rcpp_rngScope_gen;
-//   Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-//   rcpp_result_gen = Rcpp::wrap(Sf(x));
-//   return rcpp_result_gen;
-//   END_RCPP
-// }
