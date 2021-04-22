@@ -3,6 +3,9 @@ output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/rpkgs/rtrend/workflows/R-CMD-check/badge.svg)](https://github.com/rpkgs/rtrend/actions)
+<!-- badges: end -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -16,7 +19,7 @@ knitr::opts_chunk$set(
 # rtrend
 
 <!-- badges: start -->
-# <!-- [![R-CMD-check](https://github.com/rpkgs/rtrend/workflows/R-CMD-check/badge.svg)](https://github.com/rpkgs/rtrend/actions) -->
+[![R-CMD-check](https://github.com/rpkgs/rtrend/workflows/R-CMD-check/badge.svg)](https://github.com/rpkgs/rtrend/actions)
 <!-- badges: end -->
 
 ## Installation
@@ -36,18 +39,25 @@ library(rtrend)
 
 ```{r}
 library(rtrend)
+y <- c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69)
+(r <- slope(y))
+(r_p <- slope_p(y))
+(r_mk <- slope_mk(y))
+(r_boot <- slope_boot(y))
+```
+
+```{r}
 set.seed(1)
 x <- rnorm(2e2)
 microbenchmark::microbenchmark(
-    mkTrend(x),
-    mkTrend_rcpp(x)
+    mkTrend_r(x),
+    mkTrend(x)
 )
 ```
 
 ``` r
 x <- c(4.81,4.17,4.41,3.59,5.87,3.83, 6.03,4.89,4.32,10,4.69)
 par(mar = c(3, 3, 1, 1), mgp = c(2, 0.6, 0))
-r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
+r_cpp <- mkTrend(x, IsPlot = TRUE)
 ```
-
 <img src="man/figures/README-mkTrend-1.svg" width="100%" />

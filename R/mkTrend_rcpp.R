@@ -2,14 +2,14 @@
 #' Modified Mann Kendall
 #'
 #' If valid observations <= 5, NA will be returned.
-#' 
+#'
 #' mkTrend is 4-fold faster with `.lm.fit`.
-#' 
+#'
 #' @param y numeric vector
 #' @param x numeric vector
 #' @param ci critical value of autocorrelation
 #' @param IsPlot boolean
-#' 
+#'
 #' @return
 #' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic.
 #' * `pval0`: The original (non corrected) Mann-Kendall test p-value
@@ -18,10 +18,10 @@
 #' `N/n*s` Value of the correction factor, representing the quotient of the number
 #' of samples N divided by the effective sample size `n*s`
 #' * `slp`  : Sen slope, The slope of the (linear) trend according to Sen test
-#' 
+#'
 #' @note
 #' slp is significant, if pval < alpha.
-#' 
+#'
 #' @references
 #' Hipel, K.W. and McLeod, A.I. (1994),
 #' \emph{Time Series Modelling of Water Resources and Environmental Systems}.
@@ -32,14 +32,14 @@
 #' \emph{Environmetrics} 13, 71--84, \doi{10.1002/env.507}.
 #'
 #' @seealso `fume::mktrend` and `trend::mk.test`
-#' @author Dongdong Kong 
-#' 
+#' @author Dongdong Kong
+#'
 #' @examples
 #' x <- c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69)
 #' r <- mkTrend(x)
-#' r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
+#' r_cpp <- mkTrend(x, IsPlot = TRUE)
 #' @export
-mkTrend_rcpp <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
+mkTrend <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     z0    = z = NA_real_
     pval0 = pval = NA_real_
     slp <- NA_real_
@@ -70,7 +70,7 @@ mkTrend_rcpp <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
 
     S = Sf(y) # call cpp
 
-    resid = .lm.fit(cbind(x, 1), y)$residuals 
+    resid = .lm.fit(cbind(x, 1), y)$residuals
     resid %<>% rank()
     # resid = lm(x ~ I(1:n))$resid
     # ro <- acf(resid, lag.max = (n - 1), plot = FALSE)$acf[-1]
@@ -81,7 +81,7 @@ mkTrend_rcpp <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     temp = varS(y, rof, S)
     z  = temp["z"][[1]]
     z0 = temp["z0"][[1]]
-    
+
     pval = 2 * pnorm(-abs(z))
     pval0 = 2 * pnorm(-abs(z0))
     Tau = S/(0.5 * n * (n - 1))
@@ -91,7 +91,7 @@ mkTrend_rcpp <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     if (IsPlot) abline(b = slp, a = intercept, col = "red")
 
     c(z0 = z0, pval0 = pval0, z = z, pval = pval, slp = slp, intercept = intercept)
-} 
+}
 
 senslope_r <- function(y, x = seq_along(y)) {
     n = length(x)
@@ -119,26 +119,35 @@ Sf_r <- function(y) {
 }
 
 #' faster autocorrelation based on ffw
-#' 
+#'
 #' This function is 4-times faster than [stats::acf()]
-#' 
+#'
+#' @inheritParams stats::acf
 #' @keywords internal
-#' 
-#' @references 
+#'
+#' @references
 #' 1. https://gist.github.com/FHedin/05d4d6d74e67922dfad88038b04f621c
 #' 2. https://gist.github.com/ajkluber/f293eefba2f946f47bfa
 #' 3. http://www.tibonihoo.net/literate_musing/autocorrelations.html#wikispecd
 #' 4. https://lingpipe-blog.com/2012/06/08/autocorrelation-fft-kiss-eigen
-#' 
+#'
+#' @return
+#' An array with the same dimensions as x containing the estimated autocorrelation.
+#'
+#' @examples
+#' set.seed(1)
+#' x = rnorm(100)
+#' r_acf_fft = acf.fft(x)
+#' r_acf = acf(x, plot = FALSE)$acf[,1,1]
 #' @importFrom fftwtools fftw
 #' @export
 acf.fft <- function(x, lag.max = NULL)
 {
     N <- length(x)
-    if (is.null(lag.max)) 
+    if (is.null(lag.max))
         lag.max = N - 1
     else lag.max = pmin(lag.max, N - 1)
-    
+
     # get a centred version of the signal
     x <- x - mean(x)
     #  need to pad with zeroes first ; pad to a power of 2 will give faster FFT

@@ -6,8 +6,27 @@
 \usage{
 acf.fft(x, lag.max = NULL)
 }
+\arguments{
+\item{x}{a univariate or multivariate (not \code{ccf}) numeric time
+    series object or a numeric vector or matrix, or an \code{"acf"} object.}
+
+\item{lag.max}{maximum lag at which to calculate the acf.
+    Default is \eqn{10\log_{10}(N/m)}{10*log10(N/m)} where \eqn{N} is the
+    number of observations and \eqn{m} the number of series.  Will
+    be automatically limited to one less than the number of observations
+    in the series.}
+}
+\value{
+An array with the same dimensions as x containing the estimated autocorrelation.
+}
 \description{
 This function is 4-times faster than \code{\link[stats:acf]{stats::acf()}}
+}
+\examples{
+set.seed(1)
+x = rnorm(100)
+r_acf_fft = acf.fft(x)
+r_acf = acf(x, plot = FALSE)$acf[,1,1]
 }
 \references{
 \enumerate{

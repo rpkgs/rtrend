@@ -21,7 +21,7 @@ StatMK <- ggproto("StatLm", Stat,
     compute_group = function(data, scales, ...) {
         rng <- range(data$x, na.rm = TRUE)
         grid <- data.frame(x = rng)
-        mod = mkTrend_rcpp(data$y, data$x)
+        mod = mkTrend(data$y, data$x)
         grid$y = grid$x * mod["slp"] + mod["intercept"]
         # browser()
         # mod <- lm(y ~ x, data = data)
@@ -33,6 +33,10 @@ StatMK <- ggproto("StatLm", Stat,
 #' stat_mk
 #' 
 #' @inheritParams ggplot2::stat_smooth
+#' 
+#' @return No return. This function is used to calculate data for gglot2 `geom_*`, 
+#' just like [ggplot2::stat_smooth()].
+#' 
 #' @example R/examples/ex-stat_mk.R
 #' @export 
 stat_mk <- function(mapping = NULL, data = NULL, geom = "line",

@@ -4,15 +4,25 @@
 \name{rtrend-package}
 \alias{rtrend}
 \alias{rtrend-package}
-\title{rtrend: Modified Mann-Kendall in Rcpp}
+\title{rtrend: Trend Estimating Tools}
 \description{
-The non-parameter trend estimating algorithm Modified Mann-Kendall 
-    was rewritten in Rcpp here, which is about 10 times fatser than the previous 
-    R version in fume.
+The traditional linear regression trend, Modified Mann-Kendall (MK)
+    non-parameter trend and bootstrap trend are included in this package. Linear 
+    regression trend is rewritten by '.lm.fit'. MK trend is rewritten by 'Rcpp'.
+    Finally, those functions are about 10 times faster than previous version 
+    in R.
     Reference:
     Hamed, K. H., & Rao, A. R. (1998). A modified Mann-Kendall trend test for 
     autocorrelated data. Journal of hydrology, 204(1-4), 182-196. 
     <doi:10.1016/S0022-1694(97)00125-X>.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/rpkgs/rtrend}
+  \item Report bugs at \url{https://github.com/rpkgs/rtrend/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Dongdong Kong \email{kongdd.sysu@gmail.com} (\href{https://orcid.org/0000-0003-1836-8172}{ORCID})

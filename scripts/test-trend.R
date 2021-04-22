@@ -10,13 +10,13 @@
 profvis::profvis({
     for (i in 1:1e3) {
         # acf.fft(y)[-1]
-        r_cpp <- mkTrend_rcpp(y, IsPlot = FALSE)
+        r_cpp <- mkTrend(y, IsPlot = FALSE)
     }
 })
 
 microbenchmark::microbenchmark(
     mkTrend(y, IsPlot = FALSE),
-    mkTrend_rcpp(y, IsPlot = FALSE), 
+    mkTrend(y, IsPlot = FALSE), 
     times = 1e4
 )
 # 

@@ -61,6 +61,10 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
+\value{
+No return. This function is used to calculate data for gglot2 \verb{geom_*},
+just like \code{\link[ggplot2:geom_smooth]{ggplot2::stat_smooth()}}.
+}
 \description{
 stat_mk
 }

@@ -9,18 +9,40 @@
 \usage{
 slope(y, x)
 
-slope_p(y, x)
+slope_p(y, x, fast = TRUE)
 
 slope_mk(x)
 
 slope_boot(y, slope_FUN = slope, times = 100, alpha = 0.1, seed)
+}
+\arguments{
+\item{y}{vector of observations of length n, or a matrix with n rows.}
+
+\item{x}{vector of predictor of length n, or a matrix with n rows.}
+
+\item{fast}{Boolean. If true, \code{\link[stats:lmfit]{stats::.lm.fit()}} will be used, which is 10x
+faster than \code{\link[stats:lm]{stats::lm()}}.}
+
+\item{slope_FUN}{one of \code{\link[=slope]{slope()}}, \code{\link[=slope_p]{slope_p()}}, \code{\link[=slope_mk]{slope_mk()}}}
+
+\item{times}{The number of bootstrap replicates.}
+
+\item{alpha}{significant level, defalt 0.1}
+
+\item{seed}{a single value, interpreted as an integer, or \code{NULL}
+    (see \sQuote{Details}).}
+}
+\value{
+\code{slope} and \code{p-value} are returned.
+For \code{slope_boot}, slope is estimated in many times. The lower, mean, upper
+and standard deviation (sd) are returned.
 }
 \description{
 \itemize{
 \item \code{slope}     : linear regression slope
 \item \code{slope_p}   : linear regression slope and p-value
 \item \code{slope_mk}  : mann kendall Sen's slope and p-value
-\item \code{slope_boot}: bootstrap slope
+\item \code{slope_boot}: bootstrap slope and p-value
 }
 }
 \examples{
@@ -30,4 +52,3 @@ r_p  <- slope_p(y)
 r_mk <- slope_mk(y)
 r_boot <- slope_boot(y)
 }
-\keyword{internal}
