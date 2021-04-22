@@ -6,6 +6,9 @@
 ## usethis namespace: start
 #' @useDynLib rtrend, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' 
+#' @importFrom graphics abline grid legend
+#' @importFrom stats .lm.fit lm acf median na.omit pnorm qnorm
 #' @import magrittr
 ## usethis namespace: end
 NULL

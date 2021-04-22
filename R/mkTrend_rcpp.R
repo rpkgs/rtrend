@@ -5,9 +5,11 @@
 #' 
 #' mkTrend is 4-fold faster with `.lm.fit`.
 #' 
+#' @param y numeric vector
 #' @param x numeric vector
 #' @param ci critical value of autocorrelation
-#'
+#' @param IsPlot boolean
+#' 
 #' @return
 #' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic.
 #' * `pval0`: The original (non corrected) Mann-Kendall test p-value

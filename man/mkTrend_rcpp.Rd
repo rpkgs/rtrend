@@ -10,9 +10,13 @@ mkTrend_rcpp(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE)
 mkTrend(x, ci = 0.95, IsPlot = FALSE)
 }
 \arguments{
+\item{y}{numeric vector}
+
 \item{x}{numeric vector}
 
 \item{ci}{critical value of autocorrelation}
+
+\item{IsPlot}{boolean}
 }
 \value{
 \itemize{

@@ -2,6 +2,7 @@
 # rtrend
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/kongdd/rtrend/workflows/R-CMD-check/badge.svg)](https://github.com/kongdd/rtrend/actions)
 <!-- badges: end -->
 
 The goal of rtrend is to ...

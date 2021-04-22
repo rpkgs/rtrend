@@ -1,3 +1,5 @@
 ^rtrend\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^scripts$
+^\.github$

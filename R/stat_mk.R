@@ -31,6 +31,8 @@ StatMK <- ggproto("StatLm", Stat,
 )
 
 #' stat_mk
+#' 
+#' @inheritParams ggplot2::stat_smooth
 #' @example R/examples/ex-stat_mk.R
 #' @export 
 stat_mk <- function(mapping = NULL, data = NULL, geom = "line",
