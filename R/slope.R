@@ -34,6 +34,8 @@ slope <- function(y, x){
         y <- y[-I_bad,]
         x <- x[-I_bad, ]
     }
+    if (length(y) <= 1) return(c(slope = NA_real_))
+    
     slope = qr.solve(cbind(x*0+1, x) , y)[2, ]
     if (length(slope) == 1) names(slope) = "slope"
     slope
@@ -52,6 +54,7 @@ slope_p <- function(y, x, fast = TRUE){
         y <- y[-I_bad,]
         x <- x[-I_bad, ]
     }
+    if (length(y) <= 1) return(c(slope = NA_real_, pvalue = NA_real_))
 
     # pvalue: the smaller, the better
     if (fast) {
