@@ -48,6 +48,8 @@ slope_p <- function(y, x, fast = TRUE){
     n <- nrow(y)
 
     if (missing(x)) x <- as.matrix(1:n)
+    if (!is.matrix(x)) x <- as.matrix(x)
+    
     I_bad <- which(!is.finite(y)) # NA or Inf
 
     if (length(I_bad) > 0) {

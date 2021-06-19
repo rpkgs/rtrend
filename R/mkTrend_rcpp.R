@@ -57,8 +57,8 @@ mkTrend <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     # if (is.vector(x) == FALSE) stop("Input data must be a vector")
     I_bad <- !is.finite(y) # NA or Inf
     if (any(I_bad)) {
-        y <- y[-which(I_bad)]
         x <- x[-which(I_bad)]
+        y <- y[-which(I_bad)]
         # NA value also removed
         # warning("The input vector contains non-finite or NA values removed!")
     }

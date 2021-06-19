@@ -1,10 +1,7 @@
 # z0       pval0           z        pval         slp   intercept 
 # 0.293547633 0.769103596 0.545586542 0.585350178 0.002352941 4.636294118 
 
-{
-    y <- rep(c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69), 2)
-}
-
+y <- rep(c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69), 2)
 # n = 32;
 # fftwtools::fftw(y, n = 32)
 profvis::profvis({
@@ -32,11 +29,9 @@ microbenchmark::microbenchmark(
     times = 1e4
 )
 
-
 {
     set.seed(1)
     x = rnorm(100)
-    
     microbenchmark::microbenchmark(
         r1 = rank(x, ties.method = "average"),
         r2 = frank(x, ties.method = "average"), 
