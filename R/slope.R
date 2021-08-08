@@ -4,17 +4,17 @@
 #' * `slope_p`   : linear regression slope and p-value
 #' * `slope_mk`  : mann kendall Sen's slope and p-value
 #' * `slope_boot`: bootstrap slope and p-value
-#' 
+#'
 #' @param y vector of observations of length n, or a matrix with n rows.
 #' @param x vector of predictor of length n, or a matrix with n rows.
-#' @param fast Boolean. If true, [stats::.lm.fit()] will be used, which is 10x 
+#' @param fast Boolean. If true, [stats::.lm.fit()] will be used, which is 10x
 #' faster than [stats::lm()].
-#' 
+#'
 #' @return
 #' `slope` and `p-value` are returned.
 #' For `slope_boot`, slope is estimated in many times. The lower, mean, upper
 #' and standard deviation (sd) are returned.
-#' 
+#'
 #' @examples
 #' y <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
 #' r    <- slope(y)
@@ -28,14 +28,17 @@ slope <- function(y, x){
     if (!is.matrix(y)) y <- as.matrix(y)
     n <- nrow(y)
 
-    if (missing(x)) x <- 1:n
+    if (missing(x)) x <- as.matrix(1:n)
+    if (!is.matrix(x)) x <- as.matrix(x)
+
     I_bad <- which(!is.finite(y)) # NA or Inf
+
     if (length(I_bad) > 0) {
-        y <- y[-I_bad,]
-        x <- x[-I_bad, ]
+        y <- y[-I_bad, , drop = FALSE]
+        x <- x[-I_bad, , drop = FALSE]
     }
     if (length(y) <= 1) return(c(slope = NA_real_))
-    
+
     slope = qr.solve(cbind(x*0+1, x) , y)[2, ]
     if (length(slope) == 1) names(slope) = "slope"
     slope
@@ -49,12 +52,12 @@ slope_p <- function(y, x, fast = TRUE){
 
     if (missing(x)) x <- as.matrix(1:n)
     if (!is.matrix(x)) x <- as.matrix(x)
-    
+
     I_bad <- which(!is.finite(y)) # NA or Inf
 
     if (length(I_bad) > 0) {
-        y <- y[-I_bad,]
-        x <- x[-I_bad, ]
+        y <- y[-I_bad, , drop = FALSE]
+        x <- x[-I_bad, , drop = FALSE]
     }
     if (length(y) <= 1) return(c(slope = NA_real_, pvalue = NA_real_))
 
@@ -78,10 +81,10 @@ slope_mk <- function(x){
 #' @param slope_FUN one of [slope()], [slope_p()], [slope_mk()]
 #' @param times The number of bootstrap replicates.
 #' @param alpha significant level, defalt 0.1
-#' 
+#'
 #' @inheritParams boot::boot
 #' @inheritParams base::set.seed
-#' 
+#'
 #' @rdname slope
 #' @importFrom boot boot
 #' @importFrom matrixStats colQuantiles colSds
