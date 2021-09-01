@@ -35,13 +35,13 @@ sgmat_wB <- function(S, w) {
 #' @param d polynomial of degree. When d = 1, it becomes moving average.
 #'
 #' @examples
-#' y <- 1:15
+#' y <- c(1, 3, 2, 5, 6, 8, 10, 1)
 #' w <- seq_along(y)/length(y)
-#'
-#' frame = 5
+#' 
+#' halfwin = 2
 #' d = 2
-#' s1 <- smooth_wSG(y, frame, d, w)
-#' s2 <- smooth_SG(y, frame, d)
+#' s1 <- smooth_wSG(y, halfwin, d, w)
+#' s2 <- smooth_SG(y, halfwin, d)
 #' @export
 smooth_wSG <- function(y, halfwin = 1L, d = 1L, w = NULL) {
     .Call(`_rtrend_smooth_wSG`, y, halfwin, d, w)
@@ -58,7 +58,7 @@ smooth_SG <- function(y, halfwin = 1L, d = 1L) {
 #' NA and Inf values in the y will be ignored automatically.
 #'
 #' @param y A numeric vector.
-#' @param haflwin Integer, half of moving window size
+#' @param halfwin Integer, half of moving window size
 #' @param w Corresponding weights of y, with the same length.
 #' @param SG_style If true, head and tail values will be in the style of SG
 #' (more weights on the center point), else traditional moving mean style.
@@ -82,9 +82,10 @@ movmean2 <- function(y, win_left = 1L, win_right = 0L, w = NULL) {
     .Call(`_rtrend_movmean2`, y, win_left, win_right, w)
 }
 
+#' @param mat numeric matrix
 #' @rdname movmean
 #' @export
-movmean2_mat <- function(mat, win_left = 3L, win_right = 0L) {
-    .Call(`_rtrend_movmean2_mat`, mat, win_left, win_right)
+movmean_2d <- function(mat, win_left = 3L, win_right = 0L) {
+    .Call(`_rtrend_movmean_2d`, mat, win_left, win_right)
 }
 

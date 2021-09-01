@@ -76,13 +76,13 @@ arma::mat sgmat_wB(const arma::mat S, const arma::colvec w) {
 //' @param d polynomial of degree. When d = 1, it becomes moving average.
 //'
 //' @examples
-//' y <- 1:15
+//' y <- c(1, 3, 2, 5, 6, 8, 10, 1)
 //' w <- seq_along(y)/length(y)
-//'
-//' frame = 5
+//' 
+//' halfwin = 2
 //' d = 2
-//' s1 <- smooth_wSG(y, frame, d, w)
-//' s2 <- smooth_SG(y, frame, d)
+//' s1 <- smooth_wSG(y, halfwin, d, w)
+//' s2 <- smooth_SG(y, halfwin, d)
 //' @export
 // [[Rcpp::export]]
 NumericVector smooth_wSG(
@@ -162,7 +162,7 @@ Rcpp::NumericVector smooth_SG(const arma::colvec y, const int halfwin=1, const i
 //' NA and Inf values in the y will be ignored automatically.
 //'
 //' @param y A numeric vector.
-//' @param haflwin Integer, half of moving window size
+//' @param halfwin Integer, half of moving window size
 //' @param w Corresponding weights of y, with the same length.
 //' @param SG_style If true, head and tail values will be in the style of SG
 //' (more weights on the center point), else traditional moving mean style.
@@ -320,10 +320,11 @@ NumericVector movmean2(
     return Rcpp::NumericVector(ma.begin(), ma.end());
 }
 
+//' @param mat numeric matrix
 //' @rdname movmean
 //' @export
 // [[Rcpp::export]]
-arma::mat movmean2_mat(arma::mat& mat, int win_left = 3, int win_right = 0)
+arma::mat movmean_2d(arma::mat& mat, int win_left = 3, int win_right = 0)
 {
     int ntime = mat.n_cols;
     int nrow = mat.n_rows;

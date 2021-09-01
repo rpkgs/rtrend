@@ -1,9 +1,15 @@
 # movmean in the R style
+#' @details
+#' - `movmean_R`: R style 3d array moving mean
+#' 
+#' @keywords internal
+#' @rdname movmean
 #' @export
-movmean_R <- function(arr, half_win = 1) {
+movmean_3d <- function(arr, half_win = 1) {
     dim = dim(arr)
     n = last(dim)
-
+    ndim = length(dim)
+    
     mat = array_3dTo2d(arr)
     # split into multiple groups, and
     win = half_win*2 + 1
@@ -16,5 +22,8 @@ movmean_R <- function(arr, half_win = 1) {
             c(rep(list(NA), i), list(mat[, 1:(n-i)])) %>% do.call(cbind, .)
         }
     })
-    abind::abind(temp, along = 3) %>% apply_3d()
+    
+    r = abind::abind(temp, along = 3) %>% apply_3d()
+    if (ndim != 2) dim(r) = dim
+    r
 }

@@ -3,17 +3,19 @@
 \name{movmean}
 \alias{movmean}
 \alias{movmean2}
-\alias{movmean2_mat}
+\alias{movmean_2d}
 \title{movmean}
 \usage{
 movmean(y, halfwin = 1L, SG_style = FALSE, w = NULL)
 
 movmean2(y, win_left = 1L, win_right = 0L, w = NULL)
 
-movmean2_mat(mat, win_left = 3L, win_right = 0L)
+movmean_2d(mat, win_left = 3L, win_right = 0L)
 }
 \arguments{
 \item{y}{A numeric vector.}
+
+\item{halfwin}{Integer, half of moving window size}
 
 \item{SG_style}{If true, head and tail values will be in the style of SG
 (more weights on the center point), else traditional moving mean style.}
@@ -22,7 +24,7 @@ movmean2_mat(mat, win_left = 3L, win_right = 0L)
 
 \item{win_left, win_right}{windows size in the left and right}
 
-\item{haflwin}{Integer, half of moving window size}
+\item{mat}{numeric matrix}
 }
 \description{
 NA and Inf values in the y will be ignored automatically.

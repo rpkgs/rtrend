@@ -137,16 +137,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// movmean2_mat
-arma::mat movmean2_mat(arma::mat& mat, int win_left, int win_right);
-RcppExport SEXP _rtrend_movmean2_mat(SEXP matSEXP, SEXP win_leftSEXP, SEXP win_rightSEXP) {
+// movmean_2d
+arma::mat movmean_2d(arma::mat& mat, int win_left, int win_right);
+RcppExport SEXP _rtrend_movmean_2d(SEXP matSEXP, SEXP win_leftSEXP, SEXP win_rightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type mat(matSEXP);
     Rcpp::traits::input_parameter< int >::type win_left(win_leftSEXP);
     Rcpp::traits::input_parameter< int >::type win_right(win_rightSEXP);
-    rcpp_result_gen = Rcpp::wrap(movmean2_mat(mat, win_left, win_right));
+    rcpp_result_gen = Rcpp::wrap(movmean_2d(mat, win_left, win_right));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -162,7 +162,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rtrend_smooth_SG", (DL_FUNC) &_rtrend_smooth_SG, 3},
     {"_rtrend_movmean", (DL_FUNC) &_rtrend_movmean, 4},
     {"_rtrend_movmean2", (DL_FUNC) &_rtrend_movmean2, 4},
-    {"_rtrend_movmean2_mat", (DL_FUNC) &_rtrend_movmean2_mat, 3},
+    {"_rtrend_movmean_2d", (DL_FUNC) &_rtrend_movmean_2d, 3},
     {NULL, NULL, 0}
 };
 
