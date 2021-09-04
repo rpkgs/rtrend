@@ -26,7 +26,7 @@ arma::mat sgmat_S(int halfwin = 5, int d = 2) {
 
     for (int i = 0; i < frame; i++) {
         for (int j =0; j <= d; j++) {
-            mat(i, j) = pow(i - halfwin, j);
+            mat(i, j) = pow(i * 1.0 - halfwin, j * 1.0);
         }
     }
     // Rcout << mat << std::endl;
@@ -78,7 +78,7 @@ arma::mat sgmat_wB(const arma::mat S, const arma::colvec w) {
 //' @examples
 //' y <- c(1, 3, 2, 5, 6, 8, 10, 1)
 //' w <- seq_along(y)/length(y)
-//' 
+//'
 //' halfwin = 2
 //' d = 2
 //' s1 <- smooth_wSG(y, halfwin, d, w)
@@ -180,7 +180,7 @@ NumericVector movmean(
     const arma::colvec y,
     int halfwin = 1,
     bool SG_style = false,
-    Nullable<NumericVector> w = R_NilValue) 
+    Nullable<NumericVector> w = R_NilValue)
 {
     int n = y.size();
     arma::colvec yy(y);
