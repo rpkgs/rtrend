@@ -3,13 +3,14 @@
 #' * `slope`     : linear regression slope
 #' * `slope_p`   : linear regression slope and p-value
 #' * `slope_mk`  : mann kendall Sen's slope and p-value
+#' * `slope_sen` : same as `slope_mk`, but with no p-value
 #' * `slope_boot`: bootstrap slope and p-value
-#'
+#' 
 #' @param y vector of observations of length n, or a matrix with n rows.
 #' @param x vector of predictor of length n, or a matrix with n rows.
 #' @param fast Boolean. If true, [stats::.lm.fit()] will be used, which is 10x
 #' faster than [stats::lm()].
-#'
+#' 
 #' @return
 #' `slope` and `p-value` are returned.
 #' For `slope_boot`, slope is estimated in many times. The lower, mean, upper
@@ -70,6 +71,22 @@ slope_p <- function(y, x, fast = TRUE){
         coefficients <- summary(l)$coefficients
     }
     coefficients[2, c(1, 4)] %>% set_names(c("slope", "pvalue"))
+}
+
+#' @rdname slope
+#' @export
+slope_sen_r <- function(y, x = seq_along(y)) {
+    n = length(x)
+    V <- rep(NA, times = (n^2 - n) / 2)
+    k = 0
+    for (i in 2:n) {
+        for (j in 1:(i - 1)) {
+            # for (j in 1:(n - 1)) {
+            k = k + 1
+            V[k] = (y[i] - y[j]) / (x[i] - x[j])
+        }
+    }
+    median(na.omit(V))
 }
 
 #' @rdname slope

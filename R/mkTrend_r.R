@@ -24,14 +24,10 @@ mkTrend_r <- function(x, ci = 0.95, IsPlot = FALSE) {
     }
 
     n <- length(x)
-    S = 0
     #20161211 modified, avoid x length less then 5, return rep(NA,5) c(z0, pval0, z, pval, slp)
     if (n < 5) return(rep(NA, 5))
-    for (i in 1:(n - 1)) {
-        for (j in (i + 1):n) {
-            S = S + sign(x[j] - x[i])
-        }
-    }
+
+    S = Sf_r(x)
     ro <- acf(rank(lm(x ~ I(1:n))$resid), lag.max = (n - 1), plot = FALSE)$acf[-1]
     sig <- qnorm((1 + ci)/2)/sqrt(n)
     rof <- ifelse(abs(ro) > sig, ro, 0)#modified by dongdong Kong, 2017-04-03
@@ -67,17 +63,19 @@ mkTrend_r <- function(x, ci = 0.95, IsPlot = FALSE) {
     pval = 2 * pnorm(-abs(z))
     pval0 = 2 * pnorm(-abs(z0))
     Tau = S/(0.5 * n * (n - 1))
-    V <- rep(NA, times = (n^2 - n)/2)
-    k = 0
-    for (i in 2:n) {
-      for (j in 1:(i-1)){
-        # for (j in 1:(n - 1)) {
-            k = k + 1
-            V[k] = (x[i] - x[j])/(i - j)
-        }
-    }
-    slp <- median(na.omit(V))
 
+    slp <- slope_sen_r(x)
     intercept <- mean(x - slp*seq_along(x), na.rm = T)
     c(z0 = z0, pval0 = pval0, z = z, pval = pval, slp = slp, intercept = intercept)
-} 
+}
+
+Sf_r <- function(y) {
+    n = length(y)
+    S = 0
+    for (i in 1:(n - 1)) {
+        for (j in (i + 1):n) {
+            S = S + sign(y[j] - y[i])
+        }
+    }
+    S
+}

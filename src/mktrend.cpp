@@ -1,8 +1,10 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//' @rdname slope
+//' @export
 // [[Rcpp::export]]
-SEXP senslope(const NumericVector& y, Nullable<NumericMatrix> x = R_NilValue) {
+SEXP slope_sen(const NumericVector& y, Nullable<NumericMatrix> x = R_NilValue) {
     int n = y.size();
     NumericVector xx;
     // isNotNull
@@ -100,7 +102,7 @@ NumericVector varS(NumericVector x, NumericVector rof, int S) {
 # x <- rnorm(50)
 # library(microbenchmark)
 # # library(Rcpp)
-# # microbenchmark(senslope(x), times=100)
+# # microbenchmark(slope_sen(x), times=100)
 # 
 # source("E:/GitHub/Vegetation/TP_phenology/R/mainfunc/main_TREND.R", encoding = "utf-8")
 # x <- rnorm(32)

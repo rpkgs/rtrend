@@ -11,15 +11,15 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// senslope
-SEXP senslope(const NumericVector& y, Nullable<NumericMatrix> x);
-RcppExport SEXP _rtrend_senslope(SEXP ySEXP, SEXP xSEXP) {
+// slope_sen
+SEXP slope_sen(const NumericVector& y, Nullable<NumericMatrix> x);
+RcppExport SEXP _rtrend_slope_sen(SEXP ySEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const NumericVector& >::type y(ySEXP);
     Rcpp::traits::input_parameter< Nullable<NumericMatrix> >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(senslope(y, x));
+    rcpp_result_gen = Rcpp::wrap(slope_sen(y, x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -152,7 +152,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rtrend_senslope", (DL_FUNC) &_rtrend_senslope, 2},
+    {"_rtrend_slope_sen", (DL_FUNC) &_rtrend_slope_sen, 2},
     {"_rtrend_Sf", (DL_FUNC) &_rtrend_Sf, 1},
     {"_rtrend_varS", (DL_FUNC) &_rtrend_varS, 3},
     {"_rtrend_sgmat_S", (DL_FUNC) &_rtrend_sgmat_S, 2},
