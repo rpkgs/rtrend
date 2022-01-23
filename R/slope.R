@@ -5,14 +5,17 @@
 #' * `slope_mk`  : mann kendall Sen's slope and p-value
 #' * `slope_sen` : same as `slope_mk`, but with no p-value
 #' * `slope_boot`: bootstrap slope and p-value
-#' 
+#'
 #' @param y vector of observations of length n, or a matrix with n rows.
 #' @param x vector of predictor of length n, or a matrix with n rows.
 #' @param fast Boolean. If true, [stats::.lm.fit()] will be used, which is 10x
 #' faster than [stats::lm()].
-#' 
+#'
 #' @return
-#' `slope` and `p-value` are returned.
+#' - `slope`  : linear regression coefficient
+#' - `pvalue` : `p-value <= 0.05`` means that corresponding `slope` is significant.
+#' - `sd`     : `Std. Error`
+#'
 #' For `slope_boot`, slope is estimated in many times. The lower, mean, upper
 #' and standard deviation (sd) are returned.
 #'
@@ -25,7 +28,7 @@
 #' @importFrom stats .lm.fit pt
 #' @export
 slope <- function(y, x){
-    # TODO: add tests for slopew
+    # TODO: add tests for slop
     if (!is.matrix(y)) y <- as.matrix(y)
     n <- nrow(y)
 
@@ -70,7 +73,7 @@ slope_p <- function(y, x, fast = TRUE){
         l <- lm(y ~ x)
         coefficients <- summary(l)$coefficients
     }
-    coefficients[2, c(1, 4)] %>% set_names(c("slope", "pvalue"))
+    coefficients[2, c(1, 4, 2)] %>% set_names(c("slope", "pvalue", "sd"))
 }
 
 #' @rdname slope

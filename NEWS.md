@@ -1,3 +1,7 @@
+# rtrend 0.1.3 (01 Sep, 2021)
+
+* add sd to `slope_p`
+
 # rtrend 0.1.1 (01 Sep, 2021)
 
 * fix error in `slope` and `slope_p` when `x` is not matrix

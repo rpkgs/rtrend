@@ -39,7 +39,12 @@ faster than \code{\link[stats:lm]{stats::lm()}}.}
     (see \sQuote{Details}).}
 }
 \value{
-\code{slope} and \code{p-value} are returned.
+\itemize{
+\item \code{slope}  : linear regression coefficient
+\item \code{pvalue} : \verb{p-value <= 0.05`` means that corresponding }slope` is significant.
+\item \code{sd}     : \verb{Std. Error}
+}
+
 For \code{slope_boot}, slope is estimated in many times. The lower, mean, upper
 and standard deviation (sd) are returned.
 }

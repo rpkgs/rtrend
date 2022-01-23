@@ -5,7 +5,7 @@ test_that("slope works", {
     r_mk = slope_mk(y)
     r_boot = slope_boot(y, times = 10)
 
-    expect_equal(names(r_p), names(r_mk))
+    expect_equal(names(r_p)[1:2], names(r_mk))
     expect_equal(r, r_p[1])
     expect_equal(colnames(r_boot), c("lower", "mean", "upper", "sd"))
 
