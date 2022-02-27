@@ -28,6 +28,7 @@ Imports:
     boot,
     magrittr,
     matrixStats,
+    terra, plyr,
     ggplot2
 Suggests: 
     covr,
