@@ -6,10 +6,10 @@
 #' mkTrend is 4-fold faster with `.lm.fit`.
 #'
 #' @param y numeric vector
-#' @param x numeric vector
+#' @param x (optional) numeric vector
 #' @param ci critical value of autocorrelation
 #' @param IsPlot boolean
-#'
+#' 
 #' @return
 #' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic.
 #' * `pval0`: The original (non corrected) Mann-Kendall test p-value
@@ -40,6 +40,8 @@
 #' r_cpp <- mkTrend(x, IsPlot = TRUE)
 #' @export
 mkTrend <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
+    x <- x %||% seq_along(y)
+    
     z0    = z = NA_real_
     pval0 = pval = NA_real_
     slp <- NA_real_

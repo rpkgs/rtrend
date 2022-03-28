@@ -11,20 +11,22 @@
 \usage{
 slope_sen(y, x = NULL)
 
-slope(y, x)
+slope(y, x, ...)
 
 slope_p(y, x, fast = TRUE)
 
-slope_sen_r(y, x = seq_along(y))
+slope_sen_r(y, x = seq_along(y), ...)
 
-slope_mk(x)
+slope_mk(y, x = NULL, ...)
 
-slope_boot(y, slope_FUN = slope, times = 100, alpha = 0.1, seed)
+slope_boot(y, x = NULL, slope_FUN = slope, times = 100, alpha = 0.1, seed, ...)
 }
 \arguments{
 \item{y}{vector of observations of length n, or a matrix with n rows.}
 
 \item{x}{vector of predictor of length n, or a matrix with n rows.}
+
+\item{...}{ignored.}
 
 \item{fast}{Boolean. If true, \code{\link[stats:lmfit]{stats::.lm.fit()}} will be used, which is 10x
 faster than \code{\link[stats:lm]{stats::lm()}}.}

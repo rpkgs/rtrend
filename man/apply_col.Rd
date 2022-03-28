@@ -14,11 +14,15 @@ apply_row(mat, by, FUN = rowMeans2, scale = 1, ...)
 
 \item{by}{integer vector, with the dim of \verb{[ntime]}}
 
+\item{FUN}{applied function}
+
 \item{scale}{in the same length of \code{by}, or a const value,
 \code{value_returned} = \code{FUN(x)*scale}. This parameter is designed for converting
 monthly to yearly, meanwhile multiply days in month.
 Currently, same group should have the same scale factor. Otherwise, only the
 first is used.}
+
+\item{...}{parameters to \code{FUN}}
 }
 \description{
 \itemize{

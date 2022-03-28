@@ -19,8 +19,9 @@
 #' 
 #' @inheritParams set_dim
 #' @inheritParams apply_row
+#' @inheritParams base::mean
 #' 
-#' @seealso [apply_row] [matrixStats::rowRanges]
+#' @seealso [apply_row], [matrixStats::rowRanges]
 #' 
 #' @examples
 #' set.seed(1)
@@ -72,11 +73,15 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, scale = 1, na.r
 #' 
 #' @param mat matrix, `[nrow, ncol]`
 #' @param by integer vector, with the dim of `[ntime]`
+#' @param FUN applied function
+#' 
 #' @param scale in the same length of `by`, or a const value,
 #' `value_returned` = `FUN(x)*scale`. This parameter is designed for converting
 #' monthly to yearly, meanwhile multiply days in month.
 #' Currently, same group should have the same scale factor. Otherwise, only the
 #' first is used.
+#' @param ... parameters to `FUN`
+#' 
 #' @note This function also suits for big.matrix object.
 #'
 #' @examples
@@ -172,6 +177,7 @@ array_2dTo3d <- function(array, I_grid = NULL, dim) {
 #' Set dimensions of an Object
 #' 
 #' @inheritParams base::dim
+#' @param dim integer vector, see also [base::dim()]
 #' 
 #' @seealso [base::dim]
 #' 
@@ -184,7 +190,10 @@ set_dim <- function(x, dim){
     x
 }
 
+#' @inheritParams base::dimnames
+#'
 #' @export
+#' @rdname set_dim
 set_dimnames <- function(x, value) {
     dimnames(x) <- value
     x

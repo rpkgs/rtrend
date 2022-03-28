@@ -2,12 +2,20 @@
 % Please edit documentation in R/arr_3d.R
 \name{set_dim}
 \alias{set_dim}
+\alias{set_dimnames}
 \title{Set dimensions of an Object}
 \usage{
 set_dim(x, dim)
+
+set_dimnames(x, value)
 }
 \arguments{
 \item{x}{an \R object, for example a matrix, array or data frame.}
+
+\item{dim}{integer vector, see also \code{\link[base:dim]{base::dim()}}}
+
+\item{value}{For the default method, either \code{NULL} or
+    a numeric vector, which is coerced to integer (by truncation).}
 }
 \description{
 Set dimensions of an Object

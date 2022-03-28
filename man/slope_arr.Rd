@@ -4,7 +4,18 @@
 \alias{slope_arr}
 \title{slope_arr}
 \usage{
-slope_arr(arr, fun = rtrend::slope_mk, return.list = FALSE)
+slope_arr(arr, FUN = rtrend::slope_mk, return.list = FALSE)
+}
+\arguments{
+\item{arr}{a matrix or array}
+
+\item{FUN}{slope functions, see \code{\link[=slope_mk]{slope_mk()}}.}
+
+\item{return.list}{boolean,
+\itemize{
+\item \code{TRUE}: list(slope, pvalue) will be return
+\item \code{FALSE}: a array, with the dim of \link{nx, ny, 2}.
+}}
 }
 \value{
 t, A 3d array, with the dim of \verb{[nx, ny, 2]}.

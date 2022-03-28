@@ -39,6 +39,11 @@ to 365, and be \code{format(date, '\%Y\%m')}.
 monthly to yearly, meanwhile multiply days in month.
 Currently, same group should have the same scale factor. Otherwise, only the
 first is used.}
+
+\item{na.rm}{a logical value indicating whether \code{NA}
+    values should be stripped before the computation proceeds.}
+
+\item{...}{parameters to \code{FUN}}
 }
 \description{
 NA values will be removed automatically
@@ -56,5 +61,5 @@ arr_yearly <- apply_3d(arr, by = year(dates), scale = days_in_month(dates))
 }
 }
 \seealso{
-\link{apply_row} \link[matrixStats:rowRanges]{matrixStats::rowRanges}
+\link{apply_row}, \link[matrixStats:rowRanges]{matrixStats::rowRanges}
 }

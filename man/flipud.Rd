@@ -5,9 +5,12 @@
 \alias{fliplr}
 \title{flipud and fliplr}
 \usage{
-flipud(x, ...)
+flipud(x)
 
 fliplr(x)
+}
+\arguments{
+\item{x}{matrix or array}
 }
 \description{
 flipud and fliplr

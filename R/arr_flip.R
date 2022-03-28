@@ -3,8 +3,10 @@
 # flipud <- function(x, ...) UseMethod("flipud", x)
 
 #' flipud and fliplr
+#' @param x matrix or array
+#' 
 #' @export
-flipud <- function(x, ...) {
+flipud <- function(x) {
     I = ncol(x):1
     ndim <- length(dim(x))
     if (ndim == 2) {
