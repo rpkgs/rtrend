@@ -1,34 +1,34 @@
 #' @rdname mkTrend
 #' @export
-mkTrend_r <- function(x, ci = 0.95, IsPlot = FALSE) {
+mkTrend_r <- function(y, ci = 0.95, IsPlot = FALSE) {
     z0    = z = NA_real_
     pval0 = pval = NA_real_
     slp <- NA_real_
     intercept <- NA_real_
 
     if (IsPlot) {
-        plot(x, type = "b")
+        plot(y, type = "b")
         grid()
-        rlm <- lm(x~seq_along(x))
+        rlm <- lm(y~seq_along(y))
         abline(rlm$coefficients, col = "blue")
         legend("topright", c('MK', 'lm'), col = c("red", "blue"), lty = 1)
     }
-    names(x) <- NULL
+    names(y) <- NULL
 
-    # if (is.vector(x) == FALSE) stop("Input data must be a vector")
-    I_bad <- !is.finite(x) # NA or Inf
+    # if (is.vector(y) == FALSE) stop("Input data must be a vector")
+    I_bad <- !is.finite(y) # NA or Inf
     if (any(I_bad)) {
-        x <- x[-which(I_bad)]
+        y <- y[-which(I_bad)]
         # NA value also removed
         # warning("The input vector contains non-finite or NA values removed!")
     }
 
-    n <- length(x)
-    #20161211 modified, avoid x length less then 5, return rep(NA,5) c(z0, pval0, z, pval, slp)
+    n <- length(y)
+    #20161211 modified, avoid y length less then 5, return rep(NA,5) c(z0, pval0, z, pval, slp)
     if (n < 5) return(rep(NA, 5))
 
-    S = Sf_r(x)
-    ro <- acf(rank(lm(x ~ I(1:n))$resid), lag.max = (n - 1), plot = FALSE)$acf[-1]
+    S = Sf_r(y)
+    ro <- acf(rank(lm(y ~ I(1:n))$resid), lag.max = (n - 1), plot = FALSE)$acf[-1]
     sig <- qnorm((1 + ci)/2)/sqrt(n)
     rof <- ifelse(abs(ro) > sig, ro, 0)#modified by dongdong Kong, 2017-04-03
     
@@ -39,10 +39,10 @@ mkTrend_r <- function(x, ci = 0.95, IsPlot = FALSE) {
     }
     essf = 1 + ess * cte
     var.S = n * (n - 1) * (2 * n + 5) * (1/18)
-    if (length(unique(x)) < n) {
-        aux <- unique(x)
+    if (length(unique(y)) < n) {
+        aux <- unique(y)
         for (i in 1:length(aux)) {
-            tie <- length(which(x == aux[i]))
+            tie <- length(which(y == aux[i]))
             if (tie > 1) {
                 var.S = var.S - tie * (tie - 1) * (2 * tie + 5) * (1/18)
             }
@@ -64,8 +64,8 @@ mkTrend_r <- function(x, ci = 0.95, IsPlot = FALSE) {
     pval0 = 2 * pnorm(-abs(z0))
     Tau = S/(0.5 * n * (n - 1))
 
-    slp <- slope_sen_r(x)
-    intercept <- mean(x - slp*seq_along(x), na.rm = T)
+    slp <- slope_sen_r(y)
+    intercept <- mean(y - slp*seq_along(y), na.rm = T)
     c(z0 = z0, pval0 = pval0, z = z, pval = pval, slp = slp, intercept = intercept)
 }
 

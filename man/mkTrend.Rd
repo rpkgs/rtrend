@@ -5,18 +5,18 @@
 \alias{mkTrend}
 \title{Modified Mann Kendall}
 \usage{
-mkTrend_r(x, ci = 0.95, IsPlot = FALSE)
+mkTrend_r(y, ci = 0.95, IsPlot = FALSE)
 
 mkTrend(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE)
 }
 \arguments{
-\item{x}{(optional) numeric vector}
+\item{y}{numeric vector}
 
 \item{ci}{critical value of autocorrelation}
 
 \item{IsPlot}{boolean}
 
-\item{y}{numeric vector}
+\item{x}{(optional) numeric vector}
 }
 \value{
 \itemize{

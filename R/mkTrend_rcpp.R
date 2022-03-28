@@ -41,7 +41,8 @@
 #' @export
 mkTrend <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     x <- x %||% seq_along(y)
-    
+    if (all(is.na(x))) x <- seq_along(y)
+
     z0    = z = NA_real_
     pval0 = pval = NA_real_
     slp <- NA_real_
