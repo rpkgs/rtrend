@@ -1,6 +1,7 @@
 ^rtrend\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^_build\.R$
 ^scripts$
 ^\.github$
 ^README\.Rmd$
