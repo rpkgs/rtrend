@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/rpkgs/rtrend/workflows/R-CMD-check/badge.svg)](https://github.com/rpkgs/rtrend/actions)
-[![codecov](https://codecov.io/gh/rpkgs/rtrend/branch/master/graph/badge.svg)](https://codecov.io/gh/rpkgs/rtrend)
+[![codecov](https://app.codecov.io/gh/rpkgs/rtrend/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rpkgs/rtrend)
 [![CRAN](http://www.r-pkg.org/badges/version/rtrend)](https://cran.r-project.org/package=rtrend)
 [![total](http://cranlogs.r-pkg.org/badges/grand-total/rtrend)](https://www.rpackages.io/package/rtrend)
 [![monthly](http://cranlogs.r-pkg.org/badges/rtrend)](https://www.rpackages.io/package/rtrend)
