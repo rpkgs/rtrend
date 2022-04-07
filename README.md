@@ -19,6 +19,8 @@ You can install the released version of rtrend from
 
 ```bash
 sudo apt install libfftw3-dev
+mamba install r-fftwtools
+conda install fftw
 ```
 
 ``` r
