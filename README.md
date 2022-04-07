@@ -17,6 +17,10 @@
 You can install the released version of rtrend from
 [CRAN](https://CRAN.R-project.org) with:
 
+```bash
+sudo apt install libfftw3-dev
+```
+
 ``` r
 install.packages("rtrend")
 ```
