@@ -1,0 +1,73 @@
+#' slope_arr
+#'
+#' @return t, A 3d array, with the dim of `[nx, ny, 2]`.
+#' - `t[,,1]`: slope
+#' - `t[,,2]`: pvalue
+#' @export
+slope_arr <- function(arr, fun = rtrend::slope_mk, return.list = FALSE) {
+    I_grid <- apply_3d(arr) %>% which.notna()
+    mat <- array_3dTo2d(arr, I_grid)
+
+    res <- apply_par(mat, 1, fun)
+    ans <- array_2dTo3d(res, I_grid, dim(arr)[1:2]) # trend
+
+    if (return.list) {
+        list(slope = ans[, , 1], pvalue = ans[, , 2])
+    } else {
+        ans
+    }
+}
+
+#' calculate MK slope of rast object
+#'
+#' @param r A rast object
+#' @param ... ignored
+#'
+#' @seealso [terra::rast()]
+#' @importFrom terra as.array plot rast ext
+#' @export
+slope_rast <- function(r, period = c(2001, 2020), outfile = NULL, overwrite = FALSE,
+                       ..., fun = rtrend::slope_mk) {
+    if (is.character(r)) r <- rast(r, ...)
+    if (!is.null(period)) {
+        r %<>% rast_filter_time(period)
+        # `r` should have time information
+    }
+    arr <- as.array(r) # 3d array
+    t <- slope_arr(arr, fun = fun, return.list = FALSE) # 3d array
+
+    r_target <- rast(r, nlyrs = 2) %>%
+        set_names(c("slope", "pvalue"))
+    # vals = t,)# vals = ans,
+    values(r_target) <- t # !note that `t` should be a 3d array
+    # `vals`, and `values`, result is different
+    if (!is.null(outfile)) {
+        if (!file.exists(outfile) || overwrite) {
+            # if (file.exists(outfile)) file.remove(outfile)
+            writeRaster(r_target, outfile, overwrite = TRUE)
+        }
+    }
+    r_target
+}
+
+#' @export
+rast_filter_time <- function(r, period = c(2001, 2020)) {
+    year <- year(time(r))
+    ind <- which(year >= period[1] & year <= period[2])
+    r[[ind]]
+}
+
+# slope_nc <- function(file, varname = 0) {
+#     period = c("2001-01-01", "2020-12-31")
+#     arr <- ncread(file, varname, DatePeriod = period)$data[[1]]
+#     info = ncdim_get(file)
+
+#     t = slope_arr(arr)
+#     r = get_grid.lonlat(info$lon, info$lat)
+#     r@data = t %>% list2df()
+#     r
+# }
+
+# list2df <- function(x) {
+#     lapply(x, as.numeric) %>% as.data.frame()
+# }
