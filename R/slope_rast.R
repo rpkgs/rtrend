@@ -19,16 +19,18 @@ slope_arr <- function(arr, fun = rtrend::slope_mk, return.list = FALSE) {
     }
 }
 
-#' calculate MK slope of rast object
+#' calculate slope of rast object
 #'
 #' @param r A yearly rast object, which should have time attribute
 #' @param period `c(year_begin, year_end)`
-#' @param outfile The path of outputed tiff file. If specified, `slope` and 
+#' @param outfile The path of outputed tiff file. If specified, `slope` and
 #' `pvalue` will be written into `outfile`.
 #' @param overwrite logical. If `TRUE`, `outfile` is overwritten.
 #' @param fun the function used to calculate slope, see [slope()] for details.
 #' @param ... other parameters ignored
-#' 
+#'
+#' @return A terra rast object, with bands of `slope` and `pvalue`.
+#'
 #' @seealso [terra::rast()]
 #' @importFrom terra as.array plot rast ext time writeRaster `values<-`
 #' @export
@@ -44,7 +46,6 @@ slope_rast <- function(r, period = c(2001, 2020), outfile = NULL, overwrite = FA
 
     r_target <- rast(r, nlyrs = 2) %>%
         set_names(c("slope", "pvalue"))
-    # vals = t,)# vals = ans,
     values(r_target) <- t # !note that `t` should be a 3d array
     # `vals`, and `values`, result is different
     if (!is.null(outfile)) {
@@ -56,6 +57,7 @@ slope_rast <- function(r, period = c(2001, 2020), outfile = NULL, overwrite = FA
     r_target
 }
 
+#' @importFrom lubridate year
 #' @rdname slope_rast
 #' @export
 rast_filter_time <- function(r, period = c(2001, 2020)) {

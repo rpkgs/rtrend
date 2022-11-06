@@ -3,7 +3,7 @@
 \name{slope_rast}
 \alias{slope_rast}
 \alias{rast_filter_time}
-\title{calculate MK slope of rast object}
+\title{calculate slope of rast object}
 \usage{
 slope_rast(
   r,
@@ -30,8 +30,11 @@ rast_filter_time(r, period = c(2001, 2020))
 
 \item{fun}{the function used to calculate slope, see \code{\link[=slope]{slope()}} for details.}
 }
+\value{
+A terra rast object, with bands of \code{slope} and \code{pvalue}.
+}
 \description{
-calculate MK slope of rast object
+calculate slope of rast object
 }
 \seealso{
 \code{\link[terra:rast]{terra::rast()}}

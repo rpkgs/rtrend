@@ -174,28 +174,3 @@ array_2dTo3d <- function(array, I_grid = NULL, dim) {
     if (!is.null(names_last)) ans %<>% set_dimnames(list(NULL, NULL, names_last))
     ans
 }
-
-#' Set dimensions of an Object
-#' 
-#' @inheritParams base::dim
-#' @param dim integer vector, see also [base::dim()]
-#' 
-#' @seealso [base::dim]
-#' 
-#' @examples
-#' x <- 1:12 
-#' set_dim(x, c(3,4))
-#' @export
-set_dim <- function(x, dim){
-    dim(x) <- dim
-    x
-}
-
-#' @inheritParams base::dimnames
-#'
-#' @export
-#' @rdname set_dim
-set_dimnames <- function(x, value) {
-    dimnames(x) <- value
-    x
-}
