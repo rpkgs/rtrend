@@ -22,6 +22,7 @@
 #'
 #' @seealso [apply_row] [matrixStats::rowRanges]
 #'
+#' @keywords internal
 #' @examples
 #' set.seed(1)
 #' size <- c(10, 8, 31)
@@ -85,6 +86,7 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, scale = 1, na.r
 #' mat_byrow <- apply_row(mat, c(1, 1, 2, 2, 3, 3), rowMeans)
 #'
 #' @importFrom matrixStats colMeans2 rowMeans2 colMins colMaxs rowMins rowMaxs
+#' @keywords internal
 #' @export
 apply_col <- function(mat, by, FUN = colMeans2, scale = 1, ...) {
     if (length(by) != nrow(mat)) {
@@ -135,6 +137,7 @@ apply_row <- function(mat, by, FUN = rowMeans2, scale = 1, ...) {
 #' @return
 #' `[nlat*nlon, ntime]`
 #'
+#' @keywords internal
 #' @export
 array_3dTo2d <- function(array, I_grid = NULL) {
     dim <- dim(array)
@@ -152,6 +155,7 @@ array_3dTo2d <- function(array, I_grid = NULL) {
 
 #' @param dim `[nrow, ncol]`
 #'
+#' @keywords internal
 #' @rdname array_3dTo2d
 #' @export
 array_2dTo3d <- function(array, I_grid = NULL, dim) {

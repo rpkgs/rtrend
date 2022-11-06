@@ -58,3 +58,4 @@ arr_yearly <- apply_3d(arr, by = year(dates), scale = days_in_month(dates))
 \seealso{
 \link{apply_row} \link[matrixStats:rowRanges]{matrixStats::rowRanges}
 }
+\keyword{internal}

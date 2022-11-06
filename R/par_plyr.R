@@ -1,11 +1,22 @@
 #' chunk
-#'
+#' 
+#' @param x a vector or list
+#' @param nchunk the number of chunks to be splitted
+#' 
 #' @references https://stackoverflow.com/questions/3318333/split-a-vector-into-chunks-in-r
+#' @keywords internal
 #' @export
 chunk <- function(x, nchunk = 6) {
     split(x, cut(seq_along(x), nchunk, labels = FALSE)) %>% set_names(NULL)
 }
 
+#' split_data
+#' 
+#' @inheritParams chunk
+#' @param x a vector, list, or matrix (not support 3d array)
+#' @param byrow If `TRUE`, split by row, otherwise by column.
+#' 
+#' @keywords internal
 #' @export
 split_data <- function(x, nchunk = 6, byrow = TRUE) {
     n <- length(x)
@@ -22,6 +33,9 @@ split_data <- function(x, nchunk = 6, byrow = TRUE) {
     }
 }
 
+#' parallel apply and llply
+#' 
+#' @keywords internal
 #' @importFrom parallel parLapply
 #' @export
 llply_par <- function(X, FUN, ..., byrow = TRUE, .combine = c) {
@@ -36,9 +50,13 @@ llply_par <- function(X, FUN, ..., byrow = TRUE, .combine = c) {
     ans
 }
 
+#' @keywords internal
+#' @rdname llply_par
 #' @export
 parLapply2 <- llply_par
 
+#' @keywords internal
+#' @rdname llply_par
 #' @export
 apply_par <- function(X, .margins = 1, FUN, ..., .progress = "text") {
     byrow <- .margins == 1

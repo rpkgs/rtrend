@@ -2,6 +2,7 @@
 % Please edit documentation in R/slope_rast.R
 \name{slope_rast}
 \alias{slope_rast}
+\alias{rast_filter_time}
 \title{calculate MK slope of rast object}
 \usage{
 slope_rast(
@@ -12,11 +13,22 @@ slope_rast(
   ...,
   fun = rtrend::slope_mk
 )
+
+rast_filter_time(r, period = c(2001, 2020))
 }
 \arguments{
-\item{r}{A rast object}
+\item{r}{A yearly rast object, which should have time attribute}
 
-\item{...}{ignored}
+\item{period}{\code{c(year_begin, year_end)}}
+
+\item{outfile}{The path of outputed tiff file. If specified, \code{slope} and
+\code{pvalue} will be written into \code{outfile}.}
+
+\item{overwrite}{logical. If \code{TRUE}, \code{outfile} is overwritten.}
+
+\item{...}{other parameters ignored}
+
+\item{fun}{the function used to calculate slope, see \code{\link[=slope]{slope()}} for details.}
 }
 \description{
 calculate MK slope of rast object

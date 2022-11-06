@@ -40,3 +40,4 @@ mat_bycol <- apply_col(mat, c(1, 1, 2, 2), colMeans)
 mat_byrow <- apply_row(mat, c(1, 1, 2, 2, 3, 3), rowMeans)
 
 }
+\keyword{internal}

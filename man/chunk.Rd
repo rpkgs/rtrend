@@ -6,9 +6,15 @@
 \usage{
 chunk(x, nchunk = 6)
 }
+\arguments{
+\item{x}{a vector or list}
+
+\item{nchunk}{the number of chunks to be splitted}
+}
 \description{
 chunk
 }
 \references{
 https://stackoverflow.com/questions/3318333/split-a-vector-into-chunks-in-r
 }
+\keyword{internal}

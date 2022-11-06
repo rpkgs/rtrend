@@ -28,8 +28,7 @@ Imports:
     boot,
     magrittr,
     matrixStats,
-    terra, plyr,
-    ggplot2
+    terra, plyr
 Suggests: 
     covr,
     testthat (>= 3.0.0)
