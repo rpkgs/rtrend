@@ -4,7 +4,13 @@
 \alias{slope_arr}
 \title{slope_arr}
 \usage{
-slope_arr(arr, fun = rtrend::slope_mk, return.list = FALSE)
+slope_arr(
+  arr,
+  fun = rtrend::slope_mk,
+  return.list = FALSE,
+  .progress = "text",
+  ...
+)
 }
 \value{
 t, A 3d array, with the dim of \verb{[nx, ny, 2]}.

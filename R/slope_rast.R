@@ -5,11 +5,11 @@
 #' - `t[,,2]`: pvalue
 #' @keywords internal
 #' @export
-slope_arr <- function(arr, fun = rtrend::slope_mk, return.list = FALSE) {
+slope_arr <- function(arr, fun = rtrend::slope_mk, return.list = FALSE, .progress = "text", ...) {
     I_grid <- apply_3d(arr) %>% which.notna()
     mat <- array_3dTo2d(arr, I_grid)
 
-    res <- apply_par(mat, 1, fun)
+    res <- apply_par(mat, 1, fun, .progress = .progress)
     ans <- array_2dTo3d(res, I_grid, dim(arr)[1:2]) # trend
 
     if (return.list) {
@@ -21,6 +21,8 @@ slope_arr <- function(arr, fun = rtrend::slope_mk, return.list = FALSE) {
 
 #' calculate slope of rast object
 #'
+#' @inheritParams plyr::llply
+#' 
 #' @param r A yearly rast object, which should have time attribute
 #' @param period `c(year_begin, year_end)`
 #' @param outfile The path of outputed tiff file. If specified, `slope` and
@@ -31,18 +33,23 @@ slope_arr <- function(arr, fun = rtrend::slope_mk, return.list = FALSE) {
 #'
 #' @return A terra rast object, with bands of `slope` and `pvalue`.
 #'
+#' @example R/examples/ex-slope_rast.R
+#'
 #' @seealso [terra::rast()]
 #' @importFrom terra as.array plot rast ext time writeRaster `values<-`
 #' @export
-slope_rast <- function(r, period = c(2001, 2020), outfile = NULL, overwrite = FALSE,
-                       ..., fun = rtrend::slope_mk) {
+slope_rast <- function(r, period = c(2001, 2020), outfile = NULL,
+                       fun = rtrend::slope_mk,
+                       ...,
+                       overwrite = FALSE,
+                       .progress = "text") {
     if (is.character(r)) r <- rast(r, ...)
     if (!is.null(period)) {
         r %<>% rast_filter_time(period)
         # `r` should have time information
     }
     arr <- as.array(r) # 3d array
-    t <- slope_arr(arr, fun = fun, return.list = FALSE) # 3d array
+    t <- slope_arr(arr, fun = fun, return.list = FALSE, .progress = .progress) # 3d array
 
     r_target <- rast(r, nlyrs = 2) %>%
         set_names(c("slope", "pvalue"))

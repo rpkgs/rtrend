@@ -1,3 +1,10 @@
+# rtrend 0.1.4 (07 Nov, 2022)
+
+Major updates
+
+* add `slope_rast`
+
+
 # rtrend 0.1.3 (01 Sep, 2021)
 
 * add sd to `slope_p`
