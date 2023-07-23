@@ -22,7 +22,6 @@ sudo apt install libfftw3-dev
 mamba install r-fftwtools
 conda install fftw
 ```
-
 ``` r
 install.packages("rtrend")
 ```
