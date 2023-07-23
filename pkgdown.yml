@@ -1,7 +1,7 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   slope_rast: slope_rast.html
-last_built: 2022-11-22T09:45Z
+last_built: 2023-07-23T15:15Z
 
