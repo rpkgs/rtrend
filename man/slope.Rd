@@ -60,9 +60,9 @@ and standard deviation (sd) are returned.
 }
 }
 \examples{
-y <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
-r    <- slope(y)
-r_p  <- slope_p(y)
+y <- c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69)
+r <- slope(y)
+r_p <- slope_p(y)
 r_mk <- slope_mk(y)
 r_boot <- slope_boot(y)
 }

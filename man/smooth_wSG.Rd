@@ -23,10 +23,10 @@ NA and Inf values in the y has been ignored automatically.
 }
 \examples{
 y <- c(1, 3, 2, 5, 6, 8, 10, 1)
-w <- seq_along(y)/length(y)
+w <- seq_along(y) / length(y)
 
-halfwin = 2
-d = 2
+halfwin <- 2
+d <- 2
 s1 <- smooth_wSG(y, halfwin, d, w)
 s2 <- smooth_SG(y, halfwin, d)
 }

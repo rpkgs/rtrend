@@ -37,7 +37,7 @@ acf.fft <- function(x, lag.max = NULL) {
   len.opt <- 2^m - N
 
   # x0 <- c(x, rep.int(0, len.opt)) # error
-  x0 <- c(x, zeros(x))
+  x0 <- c(x, x*0)
 
   # fft using fast fftw library as backend
   FF <- fftw(x0)

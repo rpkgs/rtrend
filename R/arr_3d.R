@@ -37,29 +37,29 @@
 #' @importFrom matrixStats rowMeans2 rowMins rowMaxs
 #' @export
 apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, scale = 1, na.rm = TRUE, ...) {
-    # TODO: add by at here
-    dims <- dim(array)
-    ndim <- length(dims) # dimensions
+  # TODO: add by at here
+  dims <- dim(array)
+  ndim <- length(dims) # dimensions
 
-    I_dims <- setdiff(1:ndim, dim) # dimensions order
-    dims_head <- dims[I_dims] # header dimensions
+  I_dims <- setdiff(1:ndim, dim) # dimensions order
+  dims_head <- dims[I_dims] # header dimensions
 
-    # move grouped dim to the last
-    if (dim != ndim) {
-        array %<>% aperm(c(I_dims, dim))
-    }
+  # move grouped dim to the last
+  if (dim != ndim) {
+    array %<>% aperm(c(I_dims, dim))
+  }
 
-    mat <- array_3dTo2d(array)
+  mat <- array_3dTo2d(array)
 
-    if (is.null(by)) {
-        ans <- FUN(mat, ..., na.rm = na.rm)
-        dim_new <- dims_head
-    } else {
-        dim_new <- c(dims_head, length(unique(by)))
-        ans <- apply_row(mat, by, FUN, scale = scale)
-    }
-    dim(ans) <- dim_new
-    ans
+  if (is.null(by)) {
+    ans <- FUN(mat, ..., na.rm = na.rm)
+    dim_new <- dims_head
+  } else {
+    dim_new <- c(dims_head, length(unique(by)))
+    ans <- apply_row(mat, by, FUN, scale = scale)
+  }
+  dim(ans) <- dim_new
+  ans
 }
 
 #' apply_col
@@ -89,44 +89,44 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, scale = 1, na.r
 #' @keywords internal
 #' @export
 apply_col <- function(mat, by, FUN = colMeans2, scale = 1, ...) {
-    if (length(by) != nrow(mat)) {
-        stop("Length of by is not equal to nrow of mat")
-    }
-    if (length(scale) == 1) scale <- rep(scale, length(by))
-    grps <- unique(by) %>% sort()
+  if (length(by) != nrow(mat)) {
+    stop("Length of by is not equal to nrow of mat")
+  }
+  if (length(scale) == 1) scale <- rep(scale, length(by))
+  grps <- unique(by) %>% sort()
 
-    ans <- lapply(grps, function(grp) {
-        I <- which(by == grp)
-        factor <- scale[I][1]
-        FUN(mat[I, , drop = FALSE] * factor, na.rm = TRUE, ...)
-    }) %>% do.call(rbind, .)
+  ans <- lapply(grps, function(grp) {
+    I <- which(by == grp)
+    factor <- scale[I][1]
+    FUN(mat[I, , drop = FALSE] * factor, na.rm = TRUE, ...)
+  }) %>% do.call(rbind, .)
 
-    if (!is.matrix(ans)) ans <- as.matrix(ans)
-    ans %>%
-        set_rownames(grps) %>%
-        set_colnames(colnames(mat))
+  if (!is.matrix(ans)) ans <- as.matrix(ans)
+  ans %>%
+    set_rownames(grps) %>%
+    set_colnames(colnames(mat))
 }
 
 
 #' @rdname apply_col
 #' @export
 apply_row <- function(mat, by, FUN = rowMeans2, scale = 1, ...) {
-    if (length(by) != ncol(mat)) {
-        stop("Length of by is not equal to ncol of mat")
-    }
-    if (length(scale) == 1) scale <- rep(scale, length(by))
-    grps <- unique(by) %>% sort()
+  if (length(by) != ncol(mat)) {
+    stop("Length of by is not equal to ncol of mat")
+  }
+  if (length(scale) == 1) scale <- rep(scale, length(by))
+  grps <- unique(by) %>% sort()
 
-    ans <- lapply(grps, function(grp) {
-        I <- which(by == grp)
-        factor <- scale[I][1]
-        FUN(mat[, I, drop = FALSE] * factor, na.rm = TRUE, ...)
-    }) %>% do.call(cbind, .)
+  ans <- lapply(grps, function(grp) {
+    I <- which(by == grp)
+    factor <- scale[I][1]
+    FUN(mat[, I, drop = FALSE] * factor, na.rm = TRUE, ...)
+  }) %>% do.call(cbind, .)
 
-    if (!is.matrix(ans)) ans <- as.matrix(ans)
-    ans %>%
-        set_colnames(grps) %>%
-        set_rownames(rownames(mat))
+  if (!is.matrix(ans)) ans <- as.matrix(ans)
+  ans %>%
+    set_colnames(grps) %>%
+    set_rownames(rownames(mat))
 }
 
 #' array_3dTo2d
@@ -140,17 +140,17 @@ apply_row <- function(mat, by, FUN = rowMeans2, scale = 1, ...) {
 #' @keywords internal
 #' @export
 array_3dTo2d <- function(array, I_grid = NULL) {
-    dim <- dim(array)
-    names_last <- dimnames(array) %>% last()
+  dim <- dim(array)
+  names_last <- dimnames(array) %>% last()
 
-    if (length(dim) >= 3) {
-        dim(array) <- c(prod(dim[1:2]), dim[3])
-    }
-    if (!is.null(I_grid)) {
-        array <- array[I_grid, ]
-    }
-    if (!is.null(names_last)) array %<>% set_dimnames(list(NULL, names_last))
-    return(array)
+  if (length(dim) >= 3) {
+    dim(array) <- c(prod(dim[1:2]), dim[3])
+  }
+  if (!is.null(I_grid)) {
+    array <- array[I_grid, ]
+  }
+  if (!is.null(names_last)) array %<>% set_dimnames(list(NULL, names_last))
+  return(array)
 }
 
 #' @param dim `[nrow, ncol]`
@@ -159,18 +159,18 @@ array_3dTo2d <- function(array, I_grid = NULL) {
 #' @rdname array_3dTo2d
 #' @export
 array_2dTo3d <- function(array, I_grid = NULL, dim) {
-    ntime <- dim(array) %>% last()
-    dim <- c(dim, ntime)
+  ntime <- dim(array) %>% last()
+  dim <- c(dim, ntime)
 
-    temp <- array(NA * array[1], dim = dim) %>%
-        array_3dTo2d()
-    if (is.null(I_grid)) {
-        temp <- array
-    } else {
-        temp[I_grid, ] <- array
-    }
-    ans <- set_dim(temp, dim)
-    names_last <- dimnames(array) %>% last()
-    if (!is.null(names_last)) ans %<>% set_dimnames(list(NULL, NULL, names_last))
-    ans
+  temp <- array(NA * array[1], dim = dim) %>%
+    array_3dTo2d()
+  if (is.null(I_grid)) {
+    temp <- array
+  } else {
+    temp[I_grid, ] <- array
+  }
+  ans <- set_dim(temp, dim)
+  names_last <- dimnames(array) %>% last()
+  if (!is.null(names_last)) ans %<>% set_dimnames(list(NULL, NULL, names_last))
+  ans
 }
