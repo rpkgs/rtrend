@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rtrend</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.5</span>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>faster autocorrelation based on ffw</h1>
-    <small class="dont-index">Source: <a href="https://github.com/rpkgs/rtrend/blob/HEAD/R/mkTrend_rcpp.R" class="external-link"><code>R/mkTrend_rcpp.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/rpkgs/rtrend/blob/HEAD/R/acf.fft.R" class="external-link"><code>R/acf.fft.R</code></a></small>
     <div class="hidden name"><code>acf.fft.Rd</code></div>
     </div>
 
@@ -85,7 +85,8 @@
     <div id="references">
     <h2>References</h2>
     
-<ol><li><p>https://gist.github.com/FHedin/05d4d6d74e67922dfad88038b04f621c</p></li>
+<ol><li><p>https://github.com/santiagobarreda/phonTools/blob/main/R/fastacf.R</p></li>
+<li><p>https://gist.github.com/FHedin/05d4d6d74e67922dfad88038b04f621c</p></li>
 <li><p>https://gist.github.com/ajkluber/f293eefba2f946f47bfa</p></li>
 <li><p>http://www.tibonihoo.net/literate_musing/autocorrelations.html#wikispecd</p></li>
 <li><p>https://lingpipe-blog.com/2012/06/08/autocorrelation-fft-kiss-eigen</p></li>
@@ -94,9 +95,9 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">r_acf_fft</span> <span class="op">=</span> <span class="fu">acf.fft</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">r_acf</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="va">x</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">acf</span><span class="op">[</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r_fast</span> <span class="op">&lt;-</span> <span class="fu">acf.fft</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="va">x</span>, plot<span class="op">=</span><span class="cn">FALSE</span>, lag.max<span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">acf</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">]</span></span></span>
 </code></pre></div>
     </div>
   </div>
