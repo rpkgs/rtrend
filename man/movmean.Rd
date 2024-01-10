@@ -31,8 +31,7 @@ NA and Inf values in the y will be ignored automatically.
 }
 \examples{
 x <- 1:100
-x[50] <- NA
-x[80] <- Inf
+x[50] <- NA; x[80] <- Inf
 s1 <- movmean(x, 2, SG_style = TRUE)
 s2 <- movmean(x, 2, SG_style = FALSE)
 movmean2(c(4, 8, 6, -1, -2, -3, -1), 2, 0)

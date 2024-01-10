@@ -1,4 +1,4 @@
-# rtrend 0.1.4 (11 Jan, 2024)
+# rtrend 0.1.5 (11 Jan, 2024)
 
 * major update: fix the error of acf.fft, hence also mkTrend
 

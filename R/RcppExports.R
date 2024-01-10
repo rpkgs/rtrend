@@ -4,27 +4,27 @@
 #' @rdname slope
 #' @export
 slope_sen <- function(y, x = NULL) {
-  .Call(`_rtrend_slope_sen`, y, x)
+    .Call(`_rtrend_slope_sen`, y, x)
 }
 
 Sf <- function(x) {
-  .Call(`_rtrend_Sf`, x)
+    .Call(`_rtrend_Sf`, x)
 }
 
 varS <- function(x, rof, S) {
-  .Call(`_rtrend_varS`, x, rof, S)
+    .Call(`_rtrend_varS`, x, rof, S)
 }
 
 sgmat_S <- function(halfwin = 5L, d = 2L) {
-  .Call(`_rtrend_sgmat_S`, halfwin, d)
+    .Call(`_rtrend_sgmat_S`, halfwin, d)
 }
 
 sgmat_B <- function(S) {
-  .Call(`_rtrend_sgmat_B`, S)
+    .Call(`_rtrend_sgmat_B`, S)
 }
 
 sgmat_wB <- function(S, w) {
-  .Call(`_rtrend_sgmat_wB`, S, w)
+    .Call(`_rtrend_sgmat_wB`, S, w)
 }
 
 #' Weighted Savitzky-Golay
@@ -38,21 +38,21 @@ sgmat_wB <- function(S, w) {
 #'
 #' @examples
 #' y <- c(1, 3, 2, 5, 6, 8, 10, 1)
-#' w <- seq_along(y) / length(y)
+#' w <- seq_along(y)/length(y)
 #'
-#' halfwin <- 2
-#' d <- 2
+#' halfwin = 2
+#' d = 2
 #' s1 <- smooth_wSG(y, halfwin, d, w)
 #' s2 <- smooth_SG(y, halfwin, d)
 #' @export
 smooth_wSG <- function(y, halfwin = 1L, d = 1L, w = NULL) {
-  .Call(`_rtrend_smooth_wSG`, y, halfwin, d, w)
+    .Call(`_rtrend_smooth_wSG`, y, halfwin, d, w)
 }
 
 #' @rdname smooth_wSG
 #' @export
 smooth_SG <- function(y, halfwin = 1L, d = 1L) {
-  .Call(`_rtrend_smooth_SG`, y, halfwin, d)
+    .Call(`_rtrend_smooth_SG`, y, halfwin, d)
 }
 
 #' movmean
@@ -67,27 +67,27 @@ smooth_SG <- function(y, halfwin = 1L, d = 1L) {
 #'
 #' @examples
 #' x <- 1:100
-#' x[50] <- NA
-#' x[80] <- Inf
+#' x[50] <- NA; x[80] <- Inf
 #' s1 <- movmean(x, 2, SG_style = TRUE)
 #' s2 <- movmean(x, 2, SG_style = FALSE)
 #' movmean2(c(4, 8, 6, -1, -2, -3, -1), 2, 0)
 #' movmean2(c(4, 8, NA, -1, -2, Inf, -1), 2, 0)
 #' @export
 movmean <- function(y, halfwin = 1L, SG_style = FALSE, w = NULL) {
-  .Call(`_rtrend_movmean`, y, halfwin, SG_style, w)
+    .Call(`_rtrend_movmean`, y, halfwin, SG_style, w)
 }
 
 #' @param win_left,win_right windows size in the left and right
 #' @rdname movmean
 #' @export
 movmean2 <- function(y, win_left = 1L, win_right = 0L, w = NULL) {
-  .Call(`_rtrend_movmean2`, y, win_left, win_right, w)
+    .Call(`_rtrend_movmean2`, y, win_left, win_right, w)
 }
 
 #' @param mat numeric matrix
 #' @rdname movmean
 #' @export
 movmean_2d <- function(mat, win_left = 3L, win_right = 0L) {
-  .Call(`_rtrend_movmean_2d`, mat, win_left, win_right)
+    .Call(`_rtrend_movmean_2d`, mat, win_left, win_right)
 }
+
