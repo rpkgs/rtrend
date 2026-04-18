@@ -11,9 +11,9 @@
 #' @param IsPlot boolean
 #'
 #' @return
-#' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic.
+#' * `z0`   : The original (non corrected) Mann-Kendall test Z statistic.
 #' * `pval0`: The original (non corrected) Mann-Kendall test p-value
-#' * `Z`    : The new Z statistic after applying the correction
+#' * `z`    : The new Z statistic after applying the correction
 #' * `pval` : Corrected p-value after accounting for serial autocorrelation
 #' `N/n*s` Value of the correction factor, representing the quotient of the number
 #' of samples N divided by the effective sample size `n*s`
@@ -75,7 +75,7 @@ mkTrend <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
 
   resid <- .lm.fit(cbind(x, 1), y)$residuals
   resid %<>% rank()
-  # resid = lm(x ~ I(1:n))$resid
+  # resid = lm(x ~ I(1:n))$residuals
   # ro <- acf(resid, lag.max = (n - 1), plot = FALSE)$acf[-1]
   ro <- acf.fft(resid, lag.max = (n - 1))[-1]
   sig <- qnorm((1 + ci) / 2) / sqrt(n)

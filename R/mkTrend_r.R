@@ -30,7 +30,7 @@ mkTrend_r <- function(y, ci = 0.95, IsPlot = FALSE) {
   }
 
   S <- Sf_r(y)
-  ro <- acf(rank(lm(y ~ I(1:n))$resid), lag.max = (n - 1), plot = FALSE)$acf[-1]
+  ro <- acf(rank(lm(y ~ I(1:n))$residuals), lag.max = (n - 1), plot = FALSE)$acf[-1]
   sig <- qnorm((1 + ci) / 2) / sqrt(n)
   rof <- ifelse(abs(ro) > sig, ro, 0) # modified by dongdong Kong, 2017-04-03
 

@@ -20,9 +20,9 @@ mkTrend(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE)
 }
 \value{
 \itemize{
-\item \code{Z0}   : The original (non corrected) Mann-Kendall test Z statistic.
+\item \code{z0}   : The original (non corrected) Mann-Kendall test Z statistic.
 \item \code{pval0}: The original (non corrected) Mann-Kendall test p-value
-\item \code{Z}    : The new Z statistic after applying the correction
+\item \code{z}    : The new Z statistic after applying the correction
 \item \code{pval} : Corrected p-value after accounting for serial autocorrelation
 \code{N/n*s} Value of the correction factor, representing the quotient of the number
 of samples N divided by the effective sample size \code{n*s}
