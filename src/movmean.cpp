@@ -251,6 +251,8 @@ NumericVector movmean(
 }
 
 //' @param win_left,win_right windows size in the left and right
+//' @param include_self Whether to include the current point itself in the
+//'   moving window. Default is `TRUE`.
 //' @rdname movmean
 //' @export
 // [[Rcpp::export]]
@@ -258,7 +260,8 @@ NumericVector movmean2(
     const arma::rowvec &y,
     int win_left = 1,
     int win_right = 0,
-    Nullable<NumericVector> w = R_NilValue)
+    Nullable<NumericVector> w = R_NilValue,
+    bool include_self = true)
 {
     int n = y.size();
     // arma::rowvec yy(y);
@@ -304,6 +307,7 @@ NumericVector movmean2(
 
         for (int j = i_begin; j <= i_end; j++)
         {
+            if (!include_self && j == i) continue;
             if (Rcpp::traits::is_finite<REALSXP>(y[j]))
             {
                 n_i++;
@@ -324,7 +328,7 @@ NumericVector movmean2(
 //' @rdname movmean
 //' @export
 // [[Rcpp::export]]
-arma::mat movmean_2d(arma::mat& mat, int win_left = 3, int win_right = 0)
+arma::mat movmean_2d(arma::mat& mat, int win_left = 3, int win_right = 0, bool include_self = true)
 {
     int ntime = mat.n_cols;
     int nrow = mat.n_rows;
@@ -338,7 +342,7 @@ arma::mat movmean_2d(arma::mat& mat, int win_left = 3, int win_right = 0)
     // arma::colvec
     for (int i = 0; i < nrow; i++)
     {
-        res.row(i) = Rcpp::as<arma::rowvec>(movmean2(mat.row(i), win_left, win_right));
+        res.row(i) = Rcpp::as<arma::rowvec>(movmean2(mat.row(i), win_left, win_right, R_NilValue, include_self));
     }
     // Rcout << mat << std::endl;
     return res;

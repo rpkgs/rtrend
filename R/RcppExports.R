@@ -78,16 +78,18 @@ movmean <- function(y, halfwin = 1L, SG_style = FALSE, w = NULL) {
 }
 
 #' @param win_left,win_right windows size in the left and right
+#' @param include_self Whether to include the current point itself in the
+#'   moving window. Default is `TRUE`.
 #' @rdname movmean
 #' @export
-movmean2 <- function(y, win_left = 1L, win_right = 0L, w = NULL) {
-    .Call(`_rtrend_movmean2`, y, win_left, win_right, w)
+movmean2 <- function(y, win_left = 1L, win_right = 0L, w = NULL, include_self = TRUE) {
+    .Call(`_rtrend_movmean2`, y, win_left, win_right, w, include_self)
 }
 
 #' @param mat numeric matrix
 #' @rdname movmean
 #' @export
-movmean_2d <- function(mat, win_left = 3L, win_right = 0L) {
-    .Call(`_rtrend_movmean_2d`, mat, win_left, win_right)
+movmean_2d <- function(mat, win_left = 3L, win_right = 0L, include_self = TRUE) {
+    .Call(`_rtrend_movmean_2d`, mat, win_left, win_right, include_self)
 }
 

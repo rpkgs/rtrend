@@ -8,9 +8,9 @@
 \usage{
 movmean(y, halfwin = 1L, SG_style = FALSE, w = NULL)
 
-movmean2(y, win_left = 1L, win_right = 0L, w = NULL)
+movmean2(y, win_left = 1L, win_right = 0L, w = NULL, include_self = TRUE)
 
-movmean_2d(mat, win_left = 3L, win_right = 0L)
+movmean_2d(mat, win_left = 3L, win_right = 0L, include_self = TRUE)
 }
 \arguments{
 \item{y}{A numeric vector.}
@@ -23,6 +23,9 @@ movmean_2d(mat, win_left = 3L, win_right = 0L)
 \item{w}{Corresponding weights of y, with the same length.}
 
 \item{win_left, win_right}{windows size in the left and right}
+
+\item{include_self}{Whether to include the current point itself in the
+moving window. Default is \code{TRUE}.}
 
 \item{mat}{numeric matrix}
 }

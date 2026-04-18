@@ -20,6 +20,31 @@ test_that("movmean works", {
     expect_true(all.equal(m, m2))
 })
 
+test_that("movmean2 include_self works", {
+    x <- c(4, 8, 6, -1, -2, -3, -1)
+
+    # include_self = TRUE (default): window [i-1, i, i+1]
+    m_with <- movmean2(x, win_left = 1, win_right = 1, include_self = TRUE)
+    # include_self = FALSE: window [i-1, i+1], excludes x[i]
+    m_without <- movmean2(x, win_left = 1, win_right = 1, include_self = FALSE)
+
+    # For interior points they must differ (x is not constant)
+    expect_false(isTRUE(all.equal(m_with[2:6], m_without[2:6])))
+
+    # Manual check for index 2 (1-based): neighbours are x[1]=4 and x[3]=6
+    # include_self=FALSE => mean(4, 6) = 5
+    expect_equal(m_without[2], mean(c(x[1], x[3])))
+
+    # include_self=TRUE  => mean(4, 8, 6) = 6
+    expect_equal(m_with[2], mean(c(x[1], x[2], x[3])))
+
+    # With NA: include_self=FALSE should still skip self even when self is NA
+    x_na <- c(4, NA, 6, -1)
+    m_na <- movmean2(x_na, win_left = 1, win_right = 1, include_self = FALSE)
+    # index 2: neighbours are x[1]=4 and x[3]=6, self (NA) excluded -> mean=5
+    expect_equal(m_na[2], mean(c(x_na[1], x_na[3]), na.rm = TRUE))
+})
+
 
 # test_that("movmean_R works", {
 #     arr = rnorm(5 * 5 * 10) %>% array(dim = c(5, 5, 10))

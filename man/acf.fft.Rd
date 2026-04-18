@@ -7,7 +7,7 @@
 acf.fft(x, lag.max = NULL)
 }
 \arguments{
-\item{lag.max}{maximum lag at which to calculate the acf.
+\item{lag.max}{maximum lag at which to calculate the \abbr{acf}.
     Default is \eqn{10\log_{10}(N/m)}{10*log10(N/m)} where \eqn{N} is the
     number of observations and \eqn{m} the number of series.  Will
     be automatically limited to one less than the number of observations

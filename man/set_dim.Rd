@@ -14,7 +14,7 @@ set_dimnames(x, value)
 
 \item{dim}{integer vector, see also \code{\link[base:dim]{base::dim()}}}
 
-\item{value}{For the default method, either \code{NULL} or
+\item{value}{for the default method, either \code{NULL} or
     a numeric vector, which is coerced to integer (by truncation).}
 }
 \description{
